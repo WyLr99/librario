@@ -1,0 +1,7 @@
+main page:
+author page:
+book page:
+
+filters: by rating, genre, release year
+search: book title, author name, genre 
+php pages: data author, data books, data
