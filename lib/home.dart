@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'books.dart';
+import 'modules/books.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -38,6 +38,7 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title:Text(temp[index].toString(),),
+                  onTap: () {selectBook(temp[index].bookId);},
                 );
               },
             ),)
