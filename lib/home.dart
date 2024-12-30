@@ -21,6 +21,12 @@ class _HomeState extends State<Home> {
       temp = allBooks;
     });
   }
+  void navigateToBook(bookId){
+    setState(() {
+      selectBook(bookId);
+    });
+    Navigator.pushNamed(context, '/bookPage');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +44,11 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title:Text(temp[index].toString(),),
-                  onTap: () {selectBook(temp[index].bookId);},
+                  onTap: () {navigateToBook(temp[index].bookId);},
                 );
               },
-            ),)
+            ),
+            )
           ],
         )
       ),
