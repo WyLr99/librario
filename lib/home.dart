@@ -9,12 +9,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Book>temp=[];
   void initState() {
-    // update data when the widget is added to the tree the first tome.
     updateBooks();
+    setState(() {
+      temp = allBooks;
+    });
     super.initState();
   }
-  List<Book> temp = allBooks;
+
   void updateTemp(){
     updateBooks();
     setState(() {
