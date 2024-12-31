@@ -9,14 +9,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Book> temp = [];
+  TextEditingController searchController = TextEditingController();
+  bool isLoading = true;
+
+  final List<Color> cardColors = [
+    Colors.blueGrey[800]!,
+    Colors.indigo[900]!,
+    Colors.teal[800]!,
+    Colors.brown[800]!,
+    Colors.deepPurple[800]!,
+    Colors.green[900]!,
+    Colors.blue[900]!,
+    Colors.orange[800]!,
+    Colors.red[900]!,
+    Colors.pink[800]!,
+  ];
+
+  @override
   void initState() {
-    // update data when the widget is added to the tree the first tome.
-    updateBooks();
     super.initState();
+    loadBooks();
   }
-  List<Book> temp = allBooks;
-  void updateTemp(){
-    updateBooks();
+
+  void loadBooks() async {
+    await updateBooks();
     setState(() {
       temp = allBooks;
       isLoading = false;
