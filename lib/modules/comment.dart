@@ -2,8 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as converter;
 import 'package:flutter/material.dart';
 import 'books.dart';
-const String addCommentsbaseUrl = "http://192.168.1.106/libario_backend/addComment.php";
-const String getCommentsbaseUrl = "http://192.168.1.106/libario_backend/getComments.php";
+const String addCommentsbaseUrl = "http://ibrahimahmad.atwebpages.com/addComment.php";
+const String getCommentsbaseUrl = "http://ibrahimahmad.atwebpages.com/getComments.php";
 
 class Comment{
   final int comment_id;
