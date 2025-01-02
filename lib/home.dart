@@ -57,6 +57,7 @@ class _HomeState extends State<Home> {
     });
   }
 
+
   void showFilterOptions() {
     showModalBottomSheet(
       context: context,
@@ -75,19 +76,28 @@ class _HomeState extends State<Home> {
               ListTile(
                 title: const Text('A to Z'),
                 onTap: () {
-                  // TODO: Add sorting functionality by A to Z
+                  Navigator.pop(context);//this to close the modal after choosing
+                  setState(() {
+                    temp.sort((a,b)=> a.title.compareTo(b.title));
+                  });
                 },
               ),
               ListTile(
                 title: const Text('Year of Publish'),
                 onTap: () {
-                  // TODO: Add sorting functionality by year
+                  Navigator.pop(context);//this to close the modal after choosing
+                  setState(() {
+                    temp.sort((a,b)=> b.year.compareTo(a.year));
+                  });
                 },
               ),
               ListTile(
                 title: const Text('Author Name'),
                 onTap: () {
-                  // TODO: Add sorting functionality by author name
+                  Navigator.pop(context);//this to close the modal after choosing
+                  setState(() {
+                    temp.sort((a,b)=> a.authorName.compareTo(b.authorName));
+                  });
                 },
               ),
             ],
