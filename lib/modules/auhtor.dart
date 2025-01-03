@@ -33,9 +33,12 @@ void updateAuthors() async{
     }
   }
 }
+int? getAuthorIdByName(String authorName) {
+    return authors.firstWhere((author) => author.authorName == authorName).authorId;
+}
 Author? currentAuthor;
 void selectAuthor(authorId){
-  currentAuthor = authors.firstWhere((auhtor)=>auhtor.authorId == authorId);
+  currentAuthor = authors.firstWhere((author)=>author.authorId == authorId);
   print(currentAuthor);
 }
 List<Book> currentAuthorBooks = [];

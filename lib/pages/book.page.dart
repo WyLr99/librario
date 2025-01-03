@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:librario/modules/auhtor.dart';
 import 'package:librario/modules/books.dart';
 import 'package:librario/modules/comment.dart';
+import 'package:librario/pages/author.page.dart';
 
 class BookPage extends StatefulWidget {
   const BookPage({super.key});
@@ -18,6 +20,7 @@ class _BookPageState extends State<BookPage> {
   @override
   void initState() {
     super.initState();
+    updateAuthors();
     _fetchComments();
   }
 
@@ -130,54 +133,60 @@ class _BookPageState extends State<BookPage> {
       ),
     );
   }
-
+  
   Widget _buildBookHeader() {
-    return Container(
-      height: 200,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Colors.indigo, Colors.blue],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
+  return Container(
+    height: 200,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+        colors: [Colors.indigo, Colors.blue],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              currentBookPage.title,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            currentBookPage.title,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 8),
+          InkWell(
+            onTap: () async {
+              int authid = getAuthorIdByName(currentBookPage.authorName)!;
+              selectAuthor(authid);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AuthorPage(author: currentAuthor!),
+                ),
+              );
+            },
+            child: Text(
+              'by ${currentBookPage.authorName}',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Colors.white70,
+                    decoration: TextDecoration.underline,
                   ),
             ),
-            const SizedBox(height: 8),
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/authorPage');
-              },
-              child: Text(
-                'by ${currentBookPage.authorName}',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white70,
-                      decoration: TextDecoration.underline,
-                    ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-
+    ),
+  );
+}
   Widget _buildBookInfo() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
