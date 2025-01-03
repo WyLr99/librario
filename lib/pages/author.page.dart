@@ -3,9 +3,8 @@ import 'package:librario/modules/auhtor.dart';
 import 'package:librario/modules/books.dart';
 
 class AuthorPage extends StatefulWidget {
-  final Author author;
 
-  const AuthorPage({required this.author, Key? key}) : super(key: key);
+  const AuthorPage({super.key});
 
   @override
   State<AuthorPage> createState() => _AuthorPageState();
@@ -25,18 +24,22 @@ class _AuthorPageState extends State<AuthorPage> {
     Colors.pink[800]!,
   ];
 
-  List<Book> books = [];
+
+  Author current =currentAuthor;
   Color authorColor = Colors.blueGrey[800]!;
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
+    setState(() {
+      current = currentAuthor;
+    });
     _loadBooks();
     _assignAuthorColor();
   }
-
-  void _loadBooks() {
-    getAuthorBooks(widget.author.authorId);
+  List<Book> books = [];
+  Future<void> _loadBooks() async{
+    await getAuthorBooks(current.authorId);
     setState(() {
       books = currentAuthorBooks;
     });
@@ -44,7 +47,7 @@ class _AuthorPageState extends State<AuthorPage> {
 
   void _assignAuthorColor() {
     setState(() {
-      authorColor = cardColors[widget.author.authorId % cardColors.length];
+      authorColor = cardColors[currentAuthor.authorId % cardColors.length];
     });
   }
 
@@ -52,7 +55,7 @@ class _AuthorPageState extends State<AuthorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.author.authorName),
+        title: Text(current.authorName),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -85,7 +88,7 @@ class _AuthorPageState extends State<AuthorPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.author.authorName,
+              current.authorName,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 32,
@@ -96,7 +99,7 @@ class _AuthorPageState extends State<AuthorPage> {
             Row(
               children: [
                 Text(
-                  'Born in: ${widget.author.bornIn}',
+                  'Born in: ${current.bornIn}',
                   style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 16,
@@ -104,7 +107,7 @@ class _AuthorPageState extends State<AuthorPage> {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  'Gender: ${widget.author.gender}',
+                  'Gender: ${current.gender}',
                   style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 16,
@@ -125,7 +128,7 @@ class _AuthorPageState extends State<AuthorPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'About ${widget.author.authorName}',
+            'About ${current.authorName}',
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -133,7 +136,7 @@ class _AuthorPageState extends State<AuthorPage> {
           ),
           const SizedBox(height: 8),
           Text(
-            widget.author.authorAbout,
+            current.authorAbout,
             style: const TextStyle(
               fontSize: 16,
               height: 1.5,

@@ -16,20 +16,20 @@ class _BookPageState extends State<BookPage> {
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController commentBodyController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    updateAuthors();
-    _fetchComments();
-  }
-
-
-  void _fetchComments() {
-    updateComments(currentBookPage.bookId);
+  void _fetchComments() async{
+    await updateComments(currentBookPage.bookId);
     setState(() {
       comments = allComments;
     });
+  }
+  @override
+  void initState() {
+    super.initState();
+    _fetchComments();
+  }
+  void selectAuthor(bookId) async{
+     await updateAuthor(bookId);
+    Navigator.pushNamed(context, '/authorPage');
   }
 
  void _addCommentDialog() {
@@ -64,27 +64,26 @@ class _BookPageState extends State<BookPage> {
           ),
           TextButton(
             child: const Text('Add'),
-            onPressed: () {
+            onPressed: () async{
               if (usernameController.text.isNotEmpty &&
                   commentBodyController.text.isNotEmpty) {
-                addComment(
+                await addComment(
                   usernameController.text,
                   commentBodyController.text,
                   currentBookPage.bookId,
                 );
 
-                // Clear the text fields
-                usernameController.clear();
-                commentBodyController.clear();
+                
+                usernameController.clear();// Clear the text fields
+                commentBodyController.clear();// Clear the text fields
 
-                // Fetch the updated comments
-                _fetchComments();
+                
+                _fetchComments();// Fetch the updated comments
 
-                // Close the dialog
-                Navigator.of(context).pop();
+                
+                Navigator.of(context).pop();// Close the dialog
               } else {
-                // Show an alert if fields are empty
-                showDialog(
+                showDialog(// Show an alert if fields are empty
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
@@ -164,16 +163,7 @@ class _BookPageState extends State<BookPage> {
           ),
           const SizedBox(height: 8),
           InkWell(
-            onTap: () async {
-              int authid = getAuthorIdByName(currentBookPage.authorName)!;
-              selectAuthor(authid);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AuthorPage(author: currentAuthor!),
-                ),
-              );
-            },
+            onTap: () {selectAuthor(currentBookPage.bookId);},
             child: Text(
               'by ${currentBookPage.authorName}',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(

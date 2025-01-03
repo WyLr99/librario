@@ -44,7 +44,6 @@ class Book{
  Book currentBookPage = allBooks[0];
 void selectBook(bookId){
   currentBookPage = allBooks.firstWhere((book)=>book.bookId == bookId);
-  print(currentBookPage);
 }
 
 

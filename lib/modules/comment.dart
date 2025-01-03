@@ -16,7 +16,7 @@ class Comment{
   }
 }
 
-void addComment(username,commentBody,bookId) async{
+Future<void> addComment(username,commentBody,bookId) async{
   final body = {
     'username': username,
     'Cbody':commentBody,
@@ -24,10 +24,10 @@ void addComment(username,commentBody,bookId) async{
   };
   final url = Uri.parse(addCommentsbaseUrl);
     await http.post(url,body: body);
-    updateComments(bookId);
+    await updateComments(bookId);
 }
 List<Comment> allComments = [];
-void updateComments(bookId) async{
+Future<void> updateComments(bookId) async{
   final body = {'bookId':bookId.toString()};
   final url = Uri.parse(getCommentsbaseUrl);
   final response = await http.post(url,body: body);
