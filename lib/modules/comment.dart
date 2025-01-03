@@ -31,6 +31,7 @@ void updateComments(bookId) async{
   final body = {'bookId':bookId.toString()};
   final url = Uri.parse(getCommentsbaseUrl);
   final response = await http.post(url,body: body);
+  allComments.clear();
   if(response.statusCode == 200){
     final result = converter.jsonDecode(response.body);
     for(var row in result){
