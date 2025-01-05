@@ -106,13 +106,7 @@ class _AuthorPageState extends State<AuthorPage> {
                   ),
                 ),
                 const SizedBox(width: 5),
-                Text(
-                  'Gender: ${current.gender}',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                  ),
-                ),
+
               ],
             ),
           ],

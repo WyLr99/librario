@@ -7,10 +7,9 @@ const String AuthorbaseUrl = "http://ibrahimahmad.atwebpages.com/getAuthor.php?q
 class Author{
   final int authorId;
   final String authorName;
-  final String gender;
   final String bornIn;
   final String authorAbout;
-  Author(this.authorId,this.authorName,this.gender,this.bornIn,this.authorAbout);
+  Author(this.authorId,this.authorName,this.bornIn,this.authorAbout);
 
     @override
       String toString(){
@@ -18,7 +17,7 @@ class Author{
     }
 
 }
-Author currentAuthor = Author(1, '1', '1' ,'1', '1');
+Author currentAuthor = Author(1, '1', '1' ,'1');
 Future<void> updateAuthor(bookId) async{
   final url = Uri.parse(AuthorbaseUrl+"$bookId");
   final response = await http.get(url);
@@ -27,7 +26,6 @@ Future<void> updateAuthor(bookId) async{
     var row = result;
       Author a = Author(int.parse(row['id']),
                         row['Full_name'],
-                        row['Gender'],
                         row['Year_of_birth'] ,
                         row['info']);
       currentAuthor = a;
